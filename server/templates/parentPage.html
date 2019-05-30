@@ -13,7 +13,7 @@
   <% } %>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 </head>
-<body class="preview-page <%= deployed ? "deployed" : "" %>">
+<body class="preview-page <%= deployed ? "deployed" : "local" %>">
   <header class="toolbar">
     <div class="title">
       <a class="back hide-deployed" aria-label="Back to graphic index" href="/">&laquo;</a>
@@ -70,7 +70,7 @@
   </header>
 
   <div class="copy shade">
-    <form method="POST" action="./duplicate">
+    <form method="POST" action="/graphic/<%= slug %>/duplicate">
       <label for="slug">Duplicate as:</label>
       <input id="slug" name="slug" required>
       <button class="submit">Duplicate</button>
@@ -78,7 +78,7 @@
   </div>
 
   <div class="preview-container" data-width="mobile">
-    <div data-pym-loader data-child-src="./index.html?<%= queryParams %>" id="preview">Loading...</div>
+    <div data-pym-loader data-child-src="./index.html?<%= typeof queryParams != "undefined" ? queryParams : "" %>" id="preview">Loading...</div>
   </div>
 
   <hr>
@@ -92,7 +92,7 @@
       rows="4"
       cols="80"
       aria-label="Embed code"
-    ><%- await t.process(embedPath, { config, slug }) %></textarea>
+    ><%- await t.process(`${config.templateRoot}/embed.html`, { config, slug }) %></textarea>
 
     <%
     if (typeof COPY != "undefined") {
@@ -107,7 +107,7 @@
       readonly="readonly"
       rows="<%= 16 + Object.keys(COPY.labels).length * 3 %>"
       aria-label="Copyedit e-mail"
-    ><%= await t.process(copyeditPath, { COPY, config, slug, sheet }) %></textarea>
+    ><%= await t.process(`${config.templateRoot}/copyedit.html`, { COPY, config, slug, sheet }) %></textarea>
     <% } %>
 
     <h2>Direct link</h2>
@@ -115,7 +115,7 @@
     Underneath the graphic embed, in the text of the story, add a prompt with a direct link to the graphic (without this preview frame, embed code, etc.). You can copy/paste the text below directly into Seamus (new editor) and the formatting should be preserved.
 
     <blockquote class="direct-link">
-      <%= await t.process(directLinkPath, { config, slug }) %>
+      <%= await t.process(`${config.templateRoot}/link.html`, { config, slug }) %>
     </blockquote>
 
   </section>
