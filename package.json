@@ -29,6 +29,7 @@
     "express": "^4.16.4",
     "googleapis": "^42.0.0",
     "html2canvas": "^1.0.0-rc.1",
+    "fsevents": "^2.0.7",
     "less": "^3.8.1",
     "livereload": "^0.8.0",
     "lodash.escape": "^4.0.1",
