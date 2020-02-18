@@ -101,14 +101,24 @@
 
     <h2>Embed code</h2>
     <% if (children) { %><h3>Default</h3><% } %>
-    <textarea class="embed-code copy-on-click" readonly="readonly" rows="7" cols="80"
-      aria-label="Embed code"><%- await t.process(`${config.templateRoot}/embed.html`, { config, slug }) %></textarea>
+    <textarea
+      class="embed-code copy-on-click"
+      readonly="readonly"
+      rows="4"
+      cols="80"
+      aria-label="Embed code"
+    ><%- (await t.process(`${config.templateRoot}/embed.html`, { config, slug })).trim().replace(/[\s\n]+/g, " ") %></textarea>
     <%
       if (children) for (var childPage of children.filter(c => c != "index.html")) { %>
     <h3><%= childPage %></h3>
-    <textarea class="embed-code copy-on-click" readonly="readonly" rows="7" cols="80"
-      aria-label="Embed code"><%- await t.process(`${config.templateRoot}/embed.html`, { config, slug, childPage }) %></textarea>
-    <% } %>
+    <textarea
+      class="embed-code copy-on-click"
+      readonly="readonly"
+      rows="4"
+      cols="80"
+      aria-label="Embed code"
+    ><%- (await t.process(`${config.templateRoot}/embed.html`, { config, slug, childPage })).trim().replace(/[\s\n]+/g, " ") %></textarea>
+      <% } %>
 
     <h2>Direct link</h2>
     <p>Use this for embedding into Roll Call Pym.js embed blocks within WordPress</p>
@@ -158,19 +168,21 @@ if (window.location.hash) {
   breakSelect.value = w;
 }
 
-var here = new URL(window.location);
-var { search, searchParams } = here;
-var child = searchParams.get("preview") || "index.html";
-var childURL = `./${child}${search}`;
-embed.dataset.childSrc = childURL;
-previewSelect.value = child;
+if (previewSelect) {
+  var here = new URL(window.location);
+  var { search, searchParams } = here;
+  var child = searchParams.get("preview") || "index.html";
+  var childURL = `./${child}${search}`;
+  embed.dataset.childSrc = childURL;
+  previewSelect.value = child;
 
-previewSelect.addEventListener("change", function() {
-  var child = previewSelect.value;
-  var there = new URL(window.location);
-  there.searchParams.set("preview", child);
-  window.location.search = there.search;
-});
+  previewSelect.addEventListener("change", function() {
+    var child = previewSelect.value;
+    var there = new URL(window.location);
+    there.searchParams.set("preview", child);
+    window.location.search = there.search;
+  });
+}
   </script>
   <script src="https://pym.nprapps.org/npr-pym-loader.v2.min.js"></script>
 </body>
