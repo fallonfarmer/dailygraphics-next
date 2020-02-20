@@ -28,15 +28,23 @@ Once you've done that:
    a. If you're at NPR, we have a private ``graphics-js`` repo already created--you should clone that repo and run ``npm install`` in that folder to get our current dependencies.
    b. For non-NPR users, you should create a ``package.json`` in the graphics folder and install the common libraries there: ``npm init -y && npm install d3-array d3-axis d3-scale d3-selection d3-shape d3-svg``.
 
-4. You should now have three sibling folders: the rig, the templates and a graphics repo. Configure ``config.json`` in the rig folder so that the paths for the graphics and template folders match the folders from steps 2 and 3.
-5. Run ``npm start`` to begin running the server, and open ``localhost:8000`` in your browser to view the admin UI.
+4. You should now have three sibling folders: the rig, the templates and a graphics repo. Create and configure ``config.json`` in the rig folder so that the paths for the graphics and template folders match the folders from steps 2 and 3.
+   a. There is a template provided with ``config.json.example`` which you can copy over and modify for you ``config.json``. The defaults are setup for S3 deployment. See `Deploying to Local`_ section below for local setup options.
+
+5. Run ``npm start`` to begin running the server, which will prompt you for any AWS login info such as MFA, and open ``localhost:8000`` in your browser to view the admin UI.
+   a. For local setup (not connected to AWS), you can run ``npm run local`` instead.
 
 Getting started (in more detail)
 --------------------------------
 
-Configuration for this project is split between ``config.json`` (an example of which is provided) for values that are organization-specific but not sensitive, and environment variables for values that should be confidential.
+Configuration for this project is split between ``config.json`` (an example of which is provided in ``config.json.example``) for values that are organization-specific but not sensitive, and environment variables for values that should be confidential.
 
-We recognize that environment variables are not perfectly secure (since installed packages have access to them from the ``process`` global), but they're also impossible to check into GitHub accidentally. You should have set:
+We recognize that environment variables are not perfectly secure (since installed packages have access to them from the ``process`` global), but they're also impossible to check into GitHub accidentally. 
+
+Environment Vaariables: Google OAuth
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You should have set:
 
 * GOOGLE_OAUTH_CLIENT_ID
 * GOOGLE_OAUTH_CONSUMER_SECRET
@@ -50,15 +58,23 @@ After creating the service account:
 1. Grant write access on your Drive folder (``driveFolder`` in ``config.json``) to the service account email address.
 2. Set GOOGLE_APPLICATION_CREDENTIALS to the file path of the JSON file containing your credentials.
 
+Environment Variables: AWS and Deploying to S3
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 If you're deploying to S3, which is the default for the rig, you'll also need to set:
 
 * AWS_ACCESS_KEY_ID
 * AWS_SECRET_ACCESS_KEY
 * AWS_DEFAULT_REGION
 
+Directory configs
+^^^^^^^^^^^^^^^^^
 In addition to the directory that contains this app, you'll also need two other directories. One is for the templates that are used to create each graphic (in the legacy rig, these were stored in the ``dailygraphics/graphic_templates`` folder). We provide a repo of templates used at NPR `here <https://github.com/nprapps/dailygraphics-templates>`_, and you should feel free to clone it. In the ``config.json file``, the "templateRoot" value should be the path to this folder.
 
 The other directory is for your graphics themselves, and it should be referenced with the "graphicsPath" key of your ``config.json`` file. This folder is also where you should install any libraries used by your graphics via NPM. For example, if you're using our templates, you'll want to run ``npm install d3-array d3-axis d3-scale d3-selection`` to get the most common D3 packages.
+
+Running the server with NPM
+---------------------------
 
 The server supports a number of command-line arguments to customize its behavior:
 
@@ -139,6 +155,9 @@ When the server runs a deployemnt, it loads the ``manifest.json`` file from the 
     ]
 
 These files are run through the same translation steps as when they're sent to the browser, then uploaded to S3. Your ``config.json`` should specify an "s3" object with a bucket, as well as a "prefix" that will be added at the front of the graphics slug. For example, if your bucket and prefix are set to "apps.npr.org" and "dailygraphics/graphics", respectively, a graphic with a slug of "bar-chart-20190101" would be uploaded to ``s3://apps.npr.org/dailygraphics/graphics/bar-chart-20190101``.
+
+Deploying to Local
+^^^^^^^^^^^^^^^^^^
 
 In addition to publishing to S3, it's possible to simply deploy to a local folder instead. To do so, add the following items to your config.json::
 

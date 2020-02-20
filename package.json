@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "eval \"`aws-auth-helper prodbeanstalk`\" node .",
+    "local": "node .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon .",
     "install": "cp -n config.json.example config.json || true"

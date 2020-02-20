@@ -3,6 +3,10 @@
   "templatePath": "../dailygraphics-templates",
   // leave driveFolder blank to create new sheets in the same folder as their templates
   "driveFolder": "0B2rSjDbnpA5XTThSNDZkWlJTX1E",
+  // where to deploy graphics / compiled web files
+  // use "local" to export compiled project to a path on your computer
+  "deployTo": "s3",
+  // if deployTo = s3 - for s3 deploy, bucket info - remove if local deploy
   "s3": {
     "live": {
       "bucket": "apps.npr.org",
@@ -13,6 +17,8 @@
       "prefix": "dailygraphics/graphics"
     }
   },
+  // if deployTo = local - remove comment for local deploy path
+  // "exportPath": "../graphics-js/exports",
   // this is the NPR Visuals Google Analytics property. update to use your own.
   "analyticsID": "UA-5828686-75"
 }
