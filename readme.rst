@@ -166,7 +166,12 @@ In addition to publishing to S3, it's possible to simply deploy to a local folde
 
 With this configuration, when you press the deploy button, the rig will create a subfolder in ``../exports`` for your graphic, and write all the files from the graphic into it, including the preview page. Graphics folders created this way can be distributed via FTP, packaged in a ZIP, or synced to network storage, since they're self-contained units.
 
-As a final convenience feature, the rig will automatically spin up a headless browser and capture a "fallback.png" image for you prior to deployment. This happens automatically and can't be disabled at this time. If you prefer hand-crafted fallback images, you may want to save them as a different filename and update the templates to point there instead.
+Fallback image
+^^^^^^^^^^^^^^^^^
+
+As a final convenience feature, the rig will automatically spin up a headless browser and capture a ``fallback.png`` image for you prior to deployment. This happens automatically and can't be disabled at this time. If you prefer hand-crafted fallback images, you may want to save them as a different filename and update the templates to point there instead.
+
+By default, the fallback image just captures the main graphic element ``".graphic"``, and does not include the chart chatter (headlines, source, byline). You can configure the fallback in the ``config.json`` to set the element selector ``fallbackElement`` to ``"body"`` to include the chatter. You can also change the default size for the PNG using ``fallbackSize`` attribute in the config.
 
 Using the CLI
 -------------
