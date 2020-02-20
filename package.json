@@ -28,7 +28,7 @@
     "common-shakeify": "^0.5.2",
     "d3": "^5.12.0",
     "exorcist": "^1.0.1",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "fsevents": "^2.0.7",
     "googleapis": "^42.0.0",
     "html2canvas": "^1.0.0-rc.5",
