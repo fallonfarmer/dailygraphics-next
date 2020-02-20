@@ -24,7 +24,7 @@
     "browserify": "^16.5.0",
     "chalk": "^2.4.2",
     "chokidar": "^3.1.1",
-    "chrome-launcher": "^0.10.7",
+    "chrome-launcher": "^0.11.2",
     "common-shakeify": "^0.5.2",
     "d3": "^5.12.0",
     "exorcist": "^1.0.1",

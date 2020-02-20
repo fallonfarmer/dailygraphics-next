@@ -19,18 +19,16 @@
   },
   // if deployTo = local - remove comment for local deploy path
   // "exportPath": "../graphics-js/exports",
-  // for creating fallback png, path to Chrome app on your computer, default path for MacOS
-  "chromePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-  // px size for fallback, default is same size as "desktop" setting in the rig
-  // default: width: 600, height: 800
-  "fallbackSize": {
-    "width": 600,
-    "height": 800
-  },
+  // px size for fallback, default is {width: 600, height: 800}
+  // remove comment to get same size as "desktop" setting in the rig
+  // "fallbackSize": {
+  //  "width": 730,
+  //  "height": 1200
+  // },
   // id and/or class selector of HTML element to capture as fallback
-  // use ".graphic" to just capture the chart, default for web fallback
-  // use "body" to capture the chart chatter, good for export to PNG
-  "fallbackElement": ".graphic",
+  // default uses ".graphic" to just capture the chart, good for web fallback
+  // remove comment for "body" to capture the chart chatter, good for export to PNG
+  // "fallbackElement": "body",
   // this is the NPR Visuals Google Analytics property. update to use your own.
   "analyticsID": "UA-5828686-75"
 }
